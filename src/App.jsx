@@ -2,39 +2,15 @@ import './App.css'
 import Header from './components/Header'
 import Footer from './components/Footer'
 import { useEffect, useState } from 'react'
+import { getCharacters } from './api/character'
 
 // const mock = []
 
 function App() {
   const [conteudo, setConteudo] = useState(<>Carregando</>)
 
-  async function PegarConteudo() {
-    // Vai realizar o fetch para o api do Rick and Morty
-
-    // GET = buscar info
-    // POST = adicionar info
-    // PUT = alterar info
-    // DELETE = deletar info
-    const requestOptions = {
-      method: 'GET'
-    }
-
-    const response = await fetch(
-      'https://rickandmortyapi.com/api/character',
-      requestOptions
-    )
-
-    if(!response.ok) {
-      return []
-    }
-
-    const data = await response.json()
-
-    return data.results
-  }
-
   async function TransformaEmLista() {
-    const todosPersonagens = await PegarConteudo();
+    const todosPersonagens = await getCharacters();
 
     return todosPersonagens.map(personagem =>
       <div className='card char' key={personagem.id}>
